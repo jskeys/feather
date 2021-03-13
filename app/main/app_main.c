@@ -12,10 +12,13 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 
+#include "version.h"
+
 
 void app_main()
 {
-    printf("Hello world!\n");
+
+    printf("App Version %d.%d.%d#%s\n", APP_MAJOR, APP_MINOR, APP_BUG, APP_HASH);
 
     /* Print chip information */
     esp_chip_info_t chip_info;
