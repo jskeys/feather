@@ -6,7 +6,7 @@
 #include "esp_system.h"
 #include "lwip/inet.h"
 #include "lwip/sockets.h"
-#include "tlv_parser.h"
+#include "tlv.h"
 #include "version.h"
 
 char req_err[] = "ERR_REQUEST_NOT_HANDLED";
@@ -22,13 +22,16 @@ uint8_t tx_buf[1024] = {'\0'};
 ssize_t num_rx;
 ssize_t num_tx;
 
+char rx_value[1024] = {'\0'};
+char tx_value[1024] = {'\0'};
+
 TLVParser_t parser;
-TLVPacket_t rx_packet = {.type = 0, .length = 0, .value = {'\0'}};
-TLVPacket_t tx_packet = {.type = 0, .length = 0, .value = {'\0'}};
+TLVPacket_t rx_packet = {.type = 0, .length = 0, .value = (char*)&rx_value};
+TLVPacket_t tx_packet = {.type = 0, .length = 0, .value = (char*)&tx_value};
 
 void print_packet(TLVPacket_t *packet)
 {
-    printf("TLV Packet: %d;%d;%s\n", packet->type, packet->length, packet->value);
+    printf("TLV Packet:T:%d;L:%d;V:%s\n", packet->type, packet->length, packet->value);
 }
 
 ssize_t handle_packet(const TLVPacket_t *request, TLVPacket_t *response)
@@ -101,8 +104,6 @@ void app_main()
     err = listen(sock_server, 1);
     printf("Listen result: %d\n", err);
 
-    TLVParser_Init(&parser);
-
     for (;;)
     {
         sock_client =
@@ -113,6 +114,8 @@ void app_main()
         }
         else
         {
+            printf("Accepted client.\n");
+            TLVParser_Init(&parser, 0x5a55);
             do
             {
                 num_rx = recv(sock_client, rx_buf, 1024, 0);
@@ -128,6 +131,7 @@ void app_main()
                 }
             } while (num_rx > 0);
             close(sock_client);
+            printf("Closed client.\n");
         }
     }
 }

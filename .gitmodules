@@ -1,6 +1,6 @@
 [submodule "rtos"]
 	path = rtos
 	url = https://github.com/espressif/ESP8266_RTOS_SDK.git
-[submodule "arduino-libs"]
-	path = arduino-libs
-	url = git@github.com:jskeys/arduino-libs.git
+[submodule "libs"]
+	path = libs
+	url = git@github.com:jskeys/libs.git

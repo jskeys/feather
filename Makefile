@@ -5,6 +5,6 @@ install:
 	./rtos/install.sh
 
 format:
-	@find ./app -regex ".*\.c" | xargs clang-format -i -style=file --verbose
+	@find ./app -regex ".*\.[ch]p*" | xargs clang-format -i -style=file --verbose
 
 .PHONY: app format
