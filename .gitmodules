@@ -1,6 +1,6 @@
-[submodule "rtos"]
-	path = rtos
-	url = https://github.com/espressif/ESP8266_RTOS_SDK.git
 [submodule "libs"]
 	path = libs
 	url = git@github.com:jskeys/libs.git
+[submodule "esp-idf"]
+	path = esp-idf
+	url = https://github.com/jskeys/esp-idf

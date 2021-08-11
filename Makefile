@@ -1,10 +1,10 @@
 app:
-	$(MAKE) -C ./app
+	idf.py all -C ./server
 
 install:
 	./rtos/install.sh
 
 format:
-	@find ./app -regex ".*\.[ch]p*" | xargs clang-format -i -style=file --verbose
+	@find ./server/main -regex ".*\.[ch]p*" | xargs clang-format -i -style=file --verbose
 
 .PHONY: app format
