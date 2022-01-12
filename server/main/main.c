@@ -66,7 +66,6 @@ void handle_packet(const TLVPacket_t *request, TLVPacket_t *response)
             break;
         case 0x04:
             temp_c = read_temp_sensor();
-            //            temp_c = get_temp_c();
             response->length = sizeof(temp_c);
             memcpy(response->value, (void *)&temp_c, sizeof(temp_c));
             break;
@@ -145,7 +144,7 @@ void app_main()
                 num_rx = recv(sock_client, rx_buf, 1024, 0);
                 for (int i = 0; i < num_rx; i++)
                 {
-                    if (tlv_process_character(&parser, &rx_packet, rx_buf[i]))
+                    if (tlv_process_char(&parser, &rx_packet, rx_buf[i]))
                     {
                         printf("%s: ", inet_ntoa(addr_client.sin_addr));
                         print_packet(&rx_packet);

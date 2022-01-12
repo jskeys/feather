@@ -13,8 +13,8 @@ void app_init_i2c()
         .mode = I2C_MODE_MASTER,
         .sda_io_num = I2C_SDA_PIN,
         .scl_io_num = I2C_SCL_PIN,
-        .sda_pullup_en = GPIO_PULLUP_DISABLE,
-        .scl_pullup_en = GPIO_PULLUP_DISABLE,
+        .sda_pullup_en = GPIO_PULLUP_ENABLE,
+        .scl_pullup_en = GPIO_PULLUP_ENABLE,
         .master.clk_speed = 200000,
     };
 
@@ -40,8 +40,8 @@ void app_init_i2c()
     i2c_cmd_handle = i2c_cmd_link_create();
     // Set the address register to 0 to read back sensor value
     ESP_ERROR_CHECK(i2c_master_start(i2c_cmd_handle));
-    ESP_ERROR_CHECK(i2c_master_write_byte(i2c_cmd_handle, 0x90, 1));
-    ESP_ERROR_CHECK(i2c_master_write_byte(i2c_cmd_handle, 0x00, 1));
+    ESP_ERROR_CHECK(i2c_master_write_byte(i2c_cmd_handle, 0x90, 0));
+    ESP_ERROR_CHECK(i2c_master_write_byte(i2c_cmd_handle, 0x00, 0));
     ESP_ERROR_CHECK(i2c_master_stop(i2c_cmd_handle));
     // Begin the sequence
     ESP_ERROR_CHECK(i2c_master_cmd_begin(I2C_NUM_0, i2c_cmd_handle, 10000));
